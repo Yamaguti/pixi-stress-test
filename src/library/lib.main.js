@@ -10,7 +10,7 @@ lib_.logicUpdate = function(dt) {
     // Custom game update
 }
 
-lib_.setUp = function() {
+lib_.setup = function() {
     // Creates global stage
     stage = new PIXI.Container();
 
