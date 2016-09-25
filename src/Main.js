@@ -4,11 +4,7 @@ stats.showPanel(0);
 
 document.body.appendChild(stats.dom);
 
-function animate() {
-    stats.begin();
-        // monitored code goes here
-    stats.end();
-    requestAnimationFrame(animate);
-}
+lib_.setup()
 
-requestAnimationFrame(animate);
+// Activate Window Resize
+lib_.windowUtils.setResize()

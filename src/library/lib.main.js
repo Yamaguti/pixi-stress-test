@@ -3,11 +3,13 @@ var lib_ = {}
 
 
 lib_.logicUpdate = function(dt) {
+// stats.begin();
     // Phisics update
     // Timer Update
     // Transition Update
 
     // Custom game update
+// stats.end();
 }
 
 lib_.setup = function() {
