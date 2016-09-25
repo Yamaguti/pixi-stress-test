@@ -20,8 +20,8 @@ lib_.utils.newRectangle = function(x, y, width, height, params) {
         graphics.beginFill(params.color);
     }
 
-    // set the line style to have a width of 5 and set the color to red
-    graphics.lineStyle(params.strokeWidth || 2, params.strokeColor || 0x000000);
+    if (params.strokeWidth)
+        graphics.lineStyle(params.strokeWidth || 2, params.strokeColor || 0x000000);
 
     // draw a rectangle
     graphics.drawRect(x, y, width, height);
