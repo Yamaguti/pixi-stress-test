@@ -3,17 +3,6 @@
 var lib_ = {}
 
 
-lib_.logicUpdate = function(dt) {
-// stats.begin();
-    // Phisics update
-    // Timer Update
-    // Transition Update
-
-    // Custom game update
-// stats.end();
-}
-
-
 lib_.setup = function() {
     // Creates global stage
     stage = new PIXI.Container();
@@ -25,26 +14,5 @@ lib_.setup = function() {
     //
     // Sets update loop
     //
-    var lastUpdateTime = 0;
-    var logicDt        = 1000/60;
-    var lag            = 0;
-
-    function update(currentUpdateTime) {
-        requestAnimationFrame(update);
-
-        dt = currentUpdateTime - lastUpdateTime;
-        lag += dt;
-
-        // Ensures that logic updates will be fixed
-        while (lag > logicDt){
-            lib_.logicUpdate(logicDt); // Call logic uptade
-            lag -= logicDt;
-        }
-
-        lastUpdateTime = currentUpdateTime
-
-        // render the stage
-        renderer.render(stage);
-    }
-    requestAnimationFrame(update);
+    lib_.update.setup()
 }
