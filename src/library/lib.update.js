@@ -32,13 +32,13 @@ lib_.update.remove = function(routine) {
 // Logic update
 //
 lib_.update.logicUpdate = function(dt) {
-// stats.begin();
+    lib_.debug.updateBegin()
     // Phisics update
     // Timer Update
     // Transition Update
 
     lib_.update.callCustomRoutines(dt);
-// stats.end();
+    lib_.debug.updateEnd()
 }
 
 

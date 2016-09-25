@@ -1,8 +1,7 @@
 
+
 // Adding Stat Gizmo
-var stats = new Stats();
-stats.showPanel(0);
-document.body.appendChild(stats.dom);
+lib_.debug.setStatsEnabled(true)
 
 
 // Lib setup
@@ -13,6 +12,6 @@ lib_.setup()
 lib_.windowUtils.setResize()
 
 
-lib_.update.add(function(dt){
-    console.log(dt)
-})
+// lib_.update.add(function(dt){
+//     console.log(dt)
+// })
