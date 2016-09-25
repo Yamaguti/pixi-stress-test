@@ -2,7 +2,7 @@
 // Easings, thanks: http://gizma.com/easing/
 // t : currentTime
 // b : startValue
-// c : change in value
+// c : change in value (finalValue-startValue)
 // d : duration
 
 lib_.easings = {}
