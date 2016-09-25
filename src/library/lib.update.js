@@ -31,9 +31,11 @@ lib_.update.remove = function(routine) {
 //
 // Logic update
 //
-lib_.update.logicUpdate = function(dt) {
+lib_.update.logicUpdate = function(dt) {             // dt is given in milliseconds
     lib_.debug.updateBegin()
     // Phisics update
+    lib_.physics.update()
+
     // Timer Update
     // Transition Update
 
