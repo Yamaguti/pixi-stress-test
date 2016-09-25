@@ -11,7 +11,7 @@ function startTransition(object, originalParams) {
     var animationParams = JSON.parse(JSON.stringify(originalParams));
     var totalTime       = animationParams.time;
     var startTime       = TimerManager.getTime();
-    var easing          = Easings[animationParams.easing || "linear"];
+    var easing          = lib_.easings[animationParams.easing || "linear"];
 
     delete animationParams["time"];
     delete animationParams["easing"];
