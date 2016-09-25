@@ -49,10 +49,10 @@ lib_.physics.updateGravity = function(dt) {
     var gravityY = lib_.physics.gravity.y;
 
     var bodiesRegistered = lib_.bodiesRegistered;
-    var amountBodies = bodiesRegistered.lenght;
+    var amountBodies = bodiesRegistered.length;
     var index;
 
-    for (index = 1; amountBodies; index++) {
+    for (index = 0; index < amountBodies; index++) {
         var physicsObject = bodiesRegistered[index];
         var gravityScale  = physicsObject.gravityScale;
 
@@ -69,10 +69,10 @@ lib_.physics.updateGravity = function(dt) {
 
 lib_.physics.updateSpeed = function(dt) {             // dt is given in milliseconds
     var bodiesRegistered = lib_.bodiesRegistered;
-    var amountBodies = bodiesRegistered.lenght;
+    var amountBodies = bodiesRegistered.length;
     var index;
 
-    for (index = 1; amountBodies; index++) {
+    for (index = 0; index < amountBodies; index++) {
         var physicsObject = bodiesRegistered[index];
         var displayObject = physicsObject.displayObject
 
