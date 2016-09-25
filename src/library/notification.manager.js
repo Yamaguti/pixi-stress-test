@@ -12,15 +12,11 @@ lib_.notificationManager.register = function(notification, callback) {
 }
 
 
-// Thanks to http://stackoverflow.com/questions/5767325/how-to-remove-a-particular-element-from-an-array-in-javascript
 lib_.notificationManager.deregister = function(notification, callback) {
     lib_.notificationManager.registerTable[notification] = lib_.notificationManager.registerTable[notification] || []
     var listenerArray = lib_.notificationManager.registerTable[notification]
 
-    var index = listenerArray.indexOf(callback);
-    if (index >= 0) {
-        listenerArray.splice(index, 1);
-    }
+    lib_.utils.removeFromArray(listenerArray, callback)
 
     // Remove array if empty
     if (listenerArray.length == 0) {
