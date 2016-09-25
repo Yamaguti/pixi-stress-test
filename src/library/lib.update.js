@@ -1,16 +1,46 @@
 
 lib_.update = {}
+lib_.update.customUpdates = []
 
 
+
+// Call all custom routines
+lib_.update.callCustomRoutines = function(dt) {
+    var customUpdates = lib_.update.customUpdates
+    var routineIndex;
+
+    for (routineIndex = customUpdates.length-1; routineIndex >= 0; routineIndex--) {
+        customUpdates[routineIndex](dt);
+    }
+}
+
+// Set routine to run at every logic update
+lib_.update.add = function(routine) {
+    var customUpdates = lib_.update.customUpdates
+    customUpdates.push(routine)
+}
+
+// Remove routine from logic update
+lib_.update.remove = function(routine) {
+    var customUpdates = lib_.update.customUpdates
+    lib_.utils.removeFromArray(customUpdates, routine);
+}
+
+
+
+//
+// Logic update
+//
 lib_.update.logicUpdate = function(dt) {
 // stats.begin();
     // Phisics update
     // Timer Update
     // Transition Update
 
-    // Custom game update
+    lib_.update.callCustomRoutines(dt);
 // stats.end();
 }
+
 
 
 //
