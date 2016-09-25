@@ -1,7 +1,7 @@
 
 
 // Adding Stat Gizmo
-lib_.debug.setStatsEnabled(true)
+lib_.debug.stats.setEnabled(true)
 
 
 // Lib setup

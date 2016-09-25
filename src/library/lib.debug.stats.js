@@ -42,7 +42,3 @@ lib_.debug.stats.deactivate = function() {
     libDebug.updateBegin = libDebug.noop
     libDebug.updateEnd = libDebug.noop
 }
-
-
-// Set Enable
-lib_.debug.setStatsEnabled = lib_.debug.stats.setEnabled
