@@ -1,23 +1,21 @@
 
 
-var NotificationManager = {}
+lib_.notificationManager = {}
+lib_.notificationManager.registerTable = {}
 
 
-NotificationManager.registerTable = {}
-
-
-NotificationManager.register = function(notification, callback) {
-    NotificationManager.registerTable[notification] = NotificationManager.registerTable[notification] || []
-    var listenerArray = NotificationManager.registerTable[notification]
+lib_.notificationManager.register = function(notification, callback) {
+    lib_.notificationManager.registerTable[notification] = lib_.notificationManager.registerTable[notification] || []
+    var listenerArray = lib_.notificationManager.registerTable[notification]
 
     listenerArray.push(callback)
 }
 
 
 // Thanks to http://stackoverflow.com/questions/5767325/how-to-remove-a-particular-element-from-an-array-in-javascript
-NotificationManager.deregister = function(notification, callback) {
-    NotificationManager.registerTable[notification] = NotificationManager.registerTable[notification] || []
-    var listenerArray = NotificationManager.registerTable[notification]
+lib_.notificationManager.deregister = function(notification, callback) {
+    lib_.notificationManager.registerTable[notification] = lib_.notificationManager.registerTable[notification] || []
+    var listenerArray = lib_.notificationManager.registerTable[notification]
 
     var index = listenerArray.indexOf(callback);
     if (index >= 0) {
@@ -26,14 +24,14 @@ NotificationManager.deregister = function(notification, callback) {
 
     // Remove array if empty
     if (listenerArray.length == 0) {
-        delete NotificationManager.registerTable[notification]
+        delete lib_.notificationManager.registerTable[notification]
     }
 }
 
 
-NotificationManager.notify = function(notification) {
-    NotificationManager.registerTable[notification] = NotificationManager.registerTable[notification] || []
-    var listenerArray = NotificationManager.registerTable[notification]
+lib_.notificationManager.notify = function(notification) {
+    lib_.notificationManager.registerTable[notification] = lib_.notificationManager.registerTable[notification] || []
+    var listenerArray = lib_.notificationManager.registerTable[notification]
     var results = []
 
     var notificationIndex;
