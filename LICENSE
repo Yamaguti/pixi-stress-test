@@ -1,6 +1,23 @@
+
+Additional copyright holders:
+
+    . File stats.min.js is copyrighted (c) 2009-2016 stats.js authors, licensed under MIT license.
+
+
+    . File favicon.ico is licensed under CC by 3.0.
+        Original version can be found in this link:
+            http://superawesomevectors.deviantart.com/art/Test-tube-free-flat-vector-icon-572782981
+
+        Modifications made:
+            . Reduced JPEG border artifacts
+            . Converted to PNG
+            . Rearranged green background as transparency.
+
+
+-------------------------------------------------------------------------------------------
+
 MIT License
 
-Copyright (c) 2009-2016 stats.js authors
 Copyright (c) 2016 Felipe Yamaguti
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
