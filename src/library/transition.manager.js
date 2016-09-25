@@ -28,12 +28,13 @@ function startTransition(object, originalParams) {
             object[param] = result;
         }
 
+        // Schedule another step
         if (currentValue < startTime + totalTime)
             requestAnimationFrame(animationHandler);
 
-        // end of transition
+        // End of transition
         else {
-            // on complete callback, if any
+            // On complete callback, if any
             if (originalParams.onComplete)
                 originalParams.onComplete();
 
