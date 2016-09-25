@@ -20,10 +20,11 @@ lib_.physics.setGravity({
 })
 
 var rect = lib_.utils.newRectangle(centerX, centerY, 20, 20, {
-    color : 0x00b300
+    color : 0x00b300,
+    strokeWidth : 2
 })
 stage.addChild(rect)
 
-lib_.physics.addBody(rect, {
-
-})
+// physics showcase
+lib_.physics.addBody(rect, { })
+rect.physicsObject.xSpeed = 0.03
