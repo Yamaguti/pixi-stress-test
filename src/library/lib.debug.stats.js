@@ -34,6 +34,7 @@ lib_.debug.stats.activate = function() {
 }
 
 // Deactivate
+// FIXME
 lib_.debug.stats.deactivate = function() {
     var libDebug = lib_.debug
     libDebug.stats.enabled = false
