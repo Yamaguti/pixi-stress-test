@@ -19,12 +19,21 @@ lib_.physics.setGravity({
     y : 0.01
 })
 
-var rect = lib_.utils.newRectangle(centerX, centerY, 20, 20, {
-    color : 0x00b300,
-    strokeWidth : 2
-})
-stage.addChild(rect)
+for (var index = 1; index < 100; index++) {
+    var color = lib_.utils.newVibrantRandomColor(Math.random(), 10)
+    console.log(color)
 
-// physics showcase
-lib_.physics.addBody(rect, { })
-rect.physicsObject.xSpeed = 0.03
+    var rect = lib_.utils.newRectangle(Math.random() * screenRight, Math.random() * screenBottom, 5, 5, {
+        color : color,
+        strokeWidth : 1
+    })
+    stage.addChild(rect)
+
+    // physics showcase
+    lib_.physics.addBody(rect, { })
+    rect.physicsObject.xSpeed = ((Math.random()*2)-1)*0.05
+    rect.physicsObject.ySpeed = ((Math.random()*2)-1)*0.05
+}
+
+
+
