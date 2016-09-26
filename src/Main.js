@@ -18,7 +18,7 @@ var utils = lib_.utils
 var physics = lib_.physics
 
 physics.setGravity({
-    x : 0.03,
+    x : 0,
     y : 0.01
 })
 
@@ -33,8 +33,16 @@ var onclick = function(mousedata) {
 
         // Physics showcase
         lib_.physics.addBody(rect, {})
-        rect.physicsObject.xSpeed = ((Math.random()*2)-1)*0.05
-        rect.physicsObject.ySpeed = ((Math.random()*2)-1)*0.05
+
+        // Square explosion
+        // rect.physicsObject.xSpeed = ((Math.random()*2)-1)*0.05
+        // rect.physicsObject.ySpeed = ((Math.random()*2)-1)*0.05
+
+        // polar conversion
+        var rotation = Math.random() * 2 * Math.PI
+        var intensity = Math.random() * 0.05
+        rect.physicsObject.xSpeed = intensity*Math.cos(rotation)
+        rect.physicsObject.ySpeed = intensity*Math.sin(rotation)
     }
 }
 
