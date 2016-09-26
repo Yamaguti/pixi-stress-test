@@ -22,20 +22,22 @@ physics.setGravity({
     y : 0.01
 })
 
-var onClick = function(mousedata) {
-    for (var index = 1; index < 100; index++) {
-        var rect = utils.newRectangle(mousedata.x-15, mousedata.y-130, 5, 5, {
+// I CANNOT BELIVE onclick IS A GLOBAL NAME :(
+var onclick = function(mousedata) {
+    for (var index = 0; index < 100; index++) {
+        var rect = utils.newRectangle(mousedata.x, mousedata.y, 5, 5, {
             color : utils.newVibrantRandomColor(Math.random(), 10),
             strokeWidth : 1
         })
         stage.addChild(rect)
 
-        // physics showcase
-        lib_.physics.addBody(rect, { })
+        // Physics showcase
+        lib_.physics.addBody(rect, {})
         rect.physicsObject.xSpeed = ((Math.random()*2)-1)*0.05
         rect.physicsObject.ySpeed = ((Math.random()*2)-1)*0.05
     }
 }
 
-stage.interactive = true;
-stage.on('mousedown', onClick);
+// I though I needed those, now I'm just sad.
+// stage.interactive = true;
+// stage.on('mousedown', onclick);
