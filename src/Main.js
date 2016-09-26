@@ -22,7 +22,7 @@ physics.setGravity({
     y : 0.01
 })
 
-// I CANNOT BELIVE onclick IS A GLOBAL NAME :(
+// I CANNOT BELIVE SOMETHING IS LOOKING AT AN onclick GLOBAL VARIABLE :(
 var onclick = function(mousedata) {
     for (var index = 0; index < 100; index++) {
         var rect = utils.newRectangle(mousedata.x, mousedata.y, 5, 5, {
