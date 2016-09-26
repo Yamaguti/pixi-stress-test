@@ -30,15 +30,8 @@ var onclick = function(mousedata) {
             strokeWidth : 1
         })
         stage.addChild(rect)
-
-        // Physics showcase
         lib_.physics.addBody(rect, {})
 
-        // Square explosion
-        // rect.physicsObject.xSpeed = ((Math.random()*2)-1)*0.05
-        // rect.physicsObject.ySpeed = ((Math.random()*2)-1)*0.05
-
-        // polar conversion
         var rotation = Math.random() * 2 * Math.PI
         var intensity = Math.random() * 0.05
         rect.physicsObject.xSpeed = intensity*Math.cos(rotation)
