@@ -15,16 +15,15 @@ lib_.windowUtils.setResize()
 // begin showcase
 
 lib_.physics.setGravity({
-    x : 0,
+    x : 0.03,
     y : 0.01
 })
 
-for (var index = 1; index < 100; index++) {
-    var color = lib_.utils.newVibrantRandomColor(Math.random(), 10)
-    console.log(color)
 
-    var rect = lib_.utils.newRectangle(Math.random() * screenRight, Math.random() * screenBottom, 5, 5, {
-        color : color,
+var utils = lib_.utils
+for (var index = 1; index < 1000; index++) {
+    var rect = utils.newRectangle(Math.random() * screenRight, Math.random() * screenBottom, 5, 5, {
+        color : utils.newVibrantRandomColor(Math.random(), 10),
         strokeWidth : 1
     })
     stage.addChild(rect)
