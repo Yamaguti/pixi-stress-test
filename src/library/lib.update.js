@@ -32,7 +32,6 @@ lib_.update.remove = function(routine) {
 // Logic update
 //
 lib_.update.logicUpdate = function(dt) {             // dt is given in milliseconds
-    lib_.debug.updateBegin()
     // Phisics update
     lib_.physics.update(dt)
 
@@ -40,7 +39,6 @@ lib_.update.logicUpdate = function(dt) {             // dt is given in milliseco
     // Transition Update
 
     lib_.update.callCustomRoutines(dt);
-    lib_.debug.updateEnd()
 }
 
 
@@ -54,6 +52,7 @@ lib_.update.setup = function() {
     var lag            = 0;
 
     function update(currentUpdateTime) {
+        lib_.debug.updateBegin()
         requestAnimationFrame(update);
 
         dt = currentUpdateTime - lastUpdateTime;
@@ -69,6 +68,7 @@ lib_.update.setup = function() {
 
         // render the stage
         renderer.render(stage);
+        lib_.debug.updateEnd()
     }
     requestAnimationFrame(update);
 }
