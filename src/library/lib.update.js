@@ -36,6 +36,8 @@ lib_.update.logicUpdate = function(dt) {             // dt is given in milliseco
     lib_.physics.update(dt)
 
     // Timer Update
+    lib_.timerManager.update(dt)
+
     // Transition Update
 
     lib_.update.callCustomRoutines(dt);

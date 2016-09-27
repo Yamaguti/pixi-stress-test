@@ -16,6 +16,7 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
     lib_.bodiesRegistered.push(physicsObject)
 
     // TODO add event when displayObject is destroyed
+    // I dont think this exists :(
 }
 
 // Remove body
