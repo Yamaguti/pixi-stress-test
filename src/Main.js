@@ -26,11 +26,12 @@ physics.setGravity({
 stage.hitArea     = new PIXI.Rectangle(screenLeft, screenTop, screenRight, screenBottom);
 stage.interactive = true
 
-stage.mousedown = function(mousedata) {
-    console.log("asdg", mousedata.data.originalEvent)
+stage.click = stage.tap = function(mousedata) {
+    var position = mousedata.data.getLocalPosition(this)
+    var x = position.x
+    var y = position.y
+
     for (var index = 0; index < 300; index++) {
-        var x = mousedata.data.originalEvent.x
-        var y = mousedata.data.originalEvent.y
 
         var showcase_object = utils.newCircle(x, y, 1.5, {
             color : utils.newVibrantRandomColor(Math.random(), 10),
