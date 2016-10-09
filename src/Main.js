@@ -23,15 +23,9 @@ physics.setGravity({
 })
 
 
-stage.hitArea     = new PIXI.Rectangle(screenLeft, screenTop, screenRight, screenBottom);
-stage.interactive = true
 
-stage.click = stage.tap = function(mousedata) {
-    var position = mousedata.data.getLocalPosition(this)
-    var x = position.x
-    var y = position.y
-
-    for (var index = 0; index < 300; index++) {
+var createParticles = function(amount, x, y) {
+    for (var index = 0; index < amount; index++) {
 
         var showcase_object = utils.newCircle(x, y, 1.5, {
             color : utils.newVibrantRandomColor(Math.random(), 10),
@@ -45,7 +39,6 @@ stage.click = stage.tap = function(mousedata) {
         showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
         showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
 
-
         lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(showcase_object) {
             return function() {
                 lib_.physics.removeBody(showcase_object)
@@ -53,6 +46,18 @@ stage.click = stage.tap = function(mousedata) {
             }
         }(showcase_object))
     }
+}
+
+
+// Touch
+
+stage.hitArea     = new PIXI.Rectangle(screenLeft, screenTop, screenRight, screenBottom);
+stage.interactive = true
+
+stage.click = stage.tap = function(mousedata) {
+    var position = mousedata.data.getLocalPosition(this)
+
+    createParticles(200, position.x, position.y)
 }
 
 console.log("tap the screen!")
