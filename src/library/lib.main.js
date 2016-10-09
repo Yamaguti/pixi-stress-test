@@ -9,7 +9,8 @@ lib_.setup = function() {
     lib_.stage = stage
 
     // Creates a global renderer instance.
-    renderer = PIXI.autoDetectRenderer(screenWidth, screenHeight, {backgroundColor : 0x1099bb});
+    renderer = PIXI.autoDetectRenderer(screenWidth, screenHeight, {backgroundColor : 0x101010});
+    lib_.renderer = renderer
     document.body.appendChild(renderer.view);
 
     //
