@@ -25,24 +25,24 @@ physics.setGravity({
 // I CANNOT BELIVE SOMETHING IS LOOKING AT AN onclick GLOBAL VARIABLE :(
 var onclick = function(mousedata) {
     for (var index = 0; index < 300; index++) {
-        var rect = utils.newRectangle(mousedata.x, mousedata.y, 5, 5, {
+        var showcase_object = utils.newCircle(mousedata.x, mousedata.y, 1.5, {
             color : utils.newVibrantRandomColor(Math.random(), 10),
-            strokeWidth : 1
         })
-        stage.addChild(rect)
-        lib_.physics.addBody(rect, {})
+
+        stage.addChild(showcase_object)
+        lib_.physics.addBody(showcase_object, {})
 
         var rotation = Math.random() * 2 * Math.PI
         var intensity = Math.random() * 0.05
-        rect.physicsObject.xSpeed = intensity*Math.cos(rotation)
-        rect.physicsObject.ySpeed = intensity*Math.sin(rotation)
+        showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
+        showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
 
-        lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(rect) {
+        lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(showcase_object) {
             return function() {
-                lib_.physics.removeBody(rect)
-                rect.destroy()
+                lib_.physics.removeBody(showcase_object)
+                showcase_object.destroy()
             }
-        }(rect))
+        }(showcase_object))
     }
 }
 
