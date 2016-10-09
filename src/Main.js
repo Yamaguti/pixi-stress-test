@@ -26,7 +26,6 @@ physics.setGravity({
 
 var createParticles = function(amount, x, y) {
     for (var index = 0; index < amount; index++) {
-
         var showcase_object = utils.newCircle(x, y, 1.5, {
             color : utils.newVibrantRandomColor(Math.random(), 10),
         })
@@ -34,7 +33,7 @@ var createParticles = function(amount, x, y) {
         stage.addChild(showcase_object)
         lib_.physics.addBody(showcase_object, {})
 
-        var rotation = Math.random() * 2 * Math.PI
+        var rotation  = Math.random() * 2 * Math.PI
         var intensity = Math.random() * 0.03
         showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
         showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
