@@ -22,10 +22,17 @@ physics.setGravity({
     y : 0.01
 })
 
-// I CANNOT BELIVE SOMETHING IS LOOKING AT AN onclick GLOBAL VARIABLE :(
-var onclick = function(mousedata) {
+
+stage.hitArea     = new PIXI.Rectangle(screenLeft, screenTop, screenRight, screenBottom);
+stage.interactive = true
+
+stage.mousedown = function(mousedata) {
+    console.log("asdg", mousedata.data.originalEvent)
     for (var index = 0; index < 300; index++) {
-        var showcase_object = utils.newCircle(mousedata.x, mousedata.y, 1.5, {
+        var x = mousedata.data.originalEvent.x
+        var y = mousedata.data.originalEvent.y
+
+        var showcase_object = utils.newCircle(x, y, 1.5, {
             color : utils.newVibrantRandomColor(Math.random(), 10),
         })
 
@@ -33,9 +40,10 @@ var onclick = function(mousedata) {
         lib_.physics.addBody(showcase_object, {})
 
         var rotation = Math.random() * 2 * Math.PI
-        var intensity = Math.random() * 0.05
+        var intensity = Math.random() * 0.03
         showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
         showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
+
 
         lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(showcase_object) {
             return function() {
@@ -46,6 +54,4 @@ var onclick = function(mousedata) {
     }
 }
 
-// I though I needed those, now I'm just sad.
-// stage.interactive = true;
-// stage.on('mousedown', onclick);
+console.log("tap the screen!")
