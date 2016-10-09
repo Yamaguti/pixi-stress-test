@@ -30,6 +30,25 @@ lib_.utils.newRectangle = function(x, y, width, height, params) {
 }
 
 
+lib_.utils.newCircle = function(x, y, radius, params) {
+    params = params || {}
+
+    var graphics = new PIXI.Graphics();
+
+    if (params.color != undefined) {
+        graphics.beginFill(params.color);
+    }
+
+    if (params.strokeWidth)
+        graphics.lineStyle(params.strokeWidth || 2, params.strokeColor || 0x000000);
+
+    // draw a rectangle
+    graphics.drawCircle(x, y, radius);
+
+    return graphics;
+}
+
+
 // Credits:
 // http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript
 // I honestly have little idea what the parameters are.
