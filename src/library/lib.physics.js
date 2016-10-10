@@ -92,7 +92,8 @@ lib_.physics.updateGravity = function(dt) {
                 var dx = (gravityObject.displayObject.worldTransform.tx - physicsObject.displayObject.worldTransform.tx)
                 var dy = (gravityObject.displayObject.worldTransform.ty - physicsObject.displayObject.worldTransform.ty)
 
-                var baseForce = constant_G/(dx*dx+dy*dy)*(dt/1000)
+                var distanceSquare = (dx*dx+dy*dy) || 1
+                var baseForce = constant_G/distanceSquare*(dt/1000)
 
                 if (physicsObject.isAffectedByGravityField) {
                     physicsObject.xSpeed += baseForce*M*dx
