@@ -106,6 +106,7 @@ var possibleGameModes = {
 
 var buttonWidth  = 140
 var buttonHeight = 50
+var buttonOffset = 20
 var button = newButton(buttonWidth, buttonHeight, {
     color : 0x45a5a0,
     onRelease: function() {
@@ -115,19 +116,36 @@ var button = newButton(buttonWidth, buttonHeight, {
         gameModeLabel.text = possibleGameModes[gameMode]
     }
 })
-button.x = screenLeft   + buttonWidth*.5  + 20
-button.y = screenBottom - buttonHeight*.5 - 20
+button.x = screenLeft   + buttonWidth*.5  + buttonOffset
+button.y = screenBottom - buttonHeight*.5 - buttonOffset
 stage.addChild(button)
-
 
 var gameModeLabel = new PIXI.Text(possibleGameModes[gameMode], {
     fontFamily : 'Arial', fontSize: 22, fill : 0xffffff, align : 'center'
 });
 stage.addChild(gameModeLabel)
-gameModeLabel.x = button.x
-gameModeLabel.y = button.y
-gameModeLabel.anchor.x = 0.5
-gameModeLabel.anchor.y = 0.5
+gameModeLabel.x = button.x; gameModeLabel.y = button.y
+gameModeLabel.anchor.x = 0.5; gameModeLabel.anchor.y = 0.5
+
+
+var reloadButton = newButton(buttonWidth, buttonHeight, {
+    color : 0xf53530,
+    onRelease: function() {
+        location.reload();
+    }
+})
+reloadButton.x = button.x + buttonWidth + buttonOffset
+reloadButton.y = button.y
+stage.addChild(reloadButton)
+
+var reloadLabel = new PIXI.Text("Reload", {
+    fontFamily : 'Arial', fontSize: 22, fill : 0xffffff, align : 'center'
+});
+stage.addChild(reloadLabel)
+reloadLabel.x = reloadButton.x; reloadLabel.y = reloadButton.y
+reloadLabel.anchor.x = 0.5; reloadLabel.anchor.y = 0.5
+
+
 
 
 // Touch
