@@ -1,7 +1,7 @@
 
 lib_.physics = {}
 lib_.bodiesRegistered = []
-lib_.bodiesWithGravityField = []
+lib_.gravitySources = []
 
 lib_.physics.constant_G = 0.0000000000667408
 
@@ -16,25 +16,23 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
 
         fixedGravityScale : (bodyProperties.fixedGravityScale === undefined) ? 1 : bodyProperties.fixedGravityScale,
         isAffectedByGravitySources : (bodyProperties.isAffectedByGravitySources === undefined) ? true : bodyProperties.isAffectedByGravitySources,
-        hasGravityField   : bodyProperties.hasGravityField,
     }
     displayObject.physicsObject = physicsObject
     lib_.bodiesRegistered.push(physicsObject)
 
-
-    if (physicsObject.hasGravityField) {
-        lib_.bodiesWithGravityField.push(physicsObject)
-    }
-
     // TODO add event when displayObject is destroyed
     // I dont think this exists :(
+
+    return physicsObject
 }
 
 
 // Special body, which affects gravitational field
 lib_.physics.addBodyAsGravitySource = function(displayObject, bodyProperties) {
-    bodyProperties.hasGravityField = true
-    lib_.physics.addBody(displayObject, bodyProperties)
+    var physicsObject = lib_.physics.addBody(displayObject, bodyProperties)
+    lib_.gravitySources.push(physicsObject)
+
+    return physicsObject
 }
 
 
@@ -42,7 +40,7 @@ lib_.physics.addBodyAsGravitySource = function(displayObject, bodyProperties) {
 lib_.physics.removeBody = function(displayObject, bodyProperties) {
     var physicsObject = displayObject.physicsObject
     lib_.utils.removeFromArray(lib_.bodiesRegistered, physicsObject)
-    lib_.utils.removeFromArray(lib_.bodiesWithGravityField, physicsObject)
+    lib_.utils.removeFromArray(lib_.gravitySources, physicsObject)
 }
 
 
@@ -70,38 +68,35 @@ lib_.physics.updateGravity = function(dt) {
     var gravityX = lib_.physics.gravity.x;
     var gravityY = lib_.physics.gravity.y;
     var constant_G = lib_.physics.constant_G
-    var sign       = PIXI.utils.sign
 
     var bodiesRegistered = lib_.bodiesRegistered;
     var amountBodies     = bodiesRegistered.length;
 
-    var bodiesWithGravityField = lib_.bodiesWithGravityField
-    var bodiesWithGravityFieldLenght = bodiesWithGravityField.length;
+    var gravitySources = lib_.gravitySources
+    var gravitySourcesLenght = gravitySources.length;
 
     var index;
-    for (index = 0; index < bodiesWithGravityFieldLenght; index++) {
-        var gravityObject = bodiesWithGravityField[index];
+    for (index = 0; index < gravitySourcesLenght; index++) {
+        var gravityObject = gravitySources[index];
+        var M = gravityObject.mass
+        var gx = gravityObject.displayObject.worldTransform.tx
+        var gy = gravityObject.displayObject.worldTransform.ty
 
         var otherIndex;
         for (otherIndex = 0; otherIndex < amountBodies; otherIndex++) {
             var physicsObject = bodiesRegistered[otherIndex];
-            var M = gravityObject.mass
-            var m = physicsObject.mass
+            var m             = physicsObject.mass
+            var transform     = physicsObject.displayObject.worldTransform
 
-            if (gravityObject !== physicsObject) {
-                var dx = (gravityObject.displayObject.worldTransform.tx - physicsObject.displayObject.worldTransform.tx)
-                var dy = (gravityObject.displayObject.worldTransform.ty - physicsObject.displayObject.worldTransform.ty)
+            var dx = (gx - transform.tx)
+            var dy = (gy - transform.ty)
+            var distanceSquare = (dx*dx+dy*dy)
 
-                var distanceSquare = (dx*dx+dy*dy) || 1
-                var baseForce = constant_G/distanceSquare*(dt/1000)
-
+            if (distanceSquare >= 1) {
+                var baseForce = M*constant_G/distanceSquare*(dt/1000)
                 if (physicsObject.isAffectedByGravitySources) {
-                    physicsObject.xSpeed += baseForce*M*dx
-                    physicsObject.ySpeed += baseForce*M*dy
-                }
-                if (gravityObject.isAffectedByGravitySources) {
-                    physicsObject.xSpeed += baseForce*m*dx
-                    physicsObject.ySpeed += baseForce*m*dy
+                    physicsObject.xSpeed += baseForce*dx
+                    physicsObject.ySpeed += baseForce*dy
                 }
             }
         }
