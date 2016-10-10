@@ -48,7 +48,7 @@ var createParticles = function(amount, x, y) {
 }
 
 
-// Creates a gravity well
+// Creates a gravity source
 var createGravityPoint = function(x, y) {
     var gravityPoint = utils.newCircle(x, y, 3, {
         color : 0xffffff,
@@ -57,7 +57,7 @@ var createGravityPoint = function(x, y) {
 
     stage.addChild(gravityPoint)
 
-    lib_.physics.addBodyWithGravityField(gravityPoint, {
+    lib_.physics.addBodyAsGravitySource(gravityPoint, {
         // isAffectedByGravityField : false,
         mass : 140000000000,
         fixedGravityScale : 0,

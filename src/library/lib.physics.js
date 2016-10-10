@@ -32,7 +32,7 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
 
 
 // Special body, which affects gravitational field
-lib_.physics.addBodyWithGravityField = function(displayObject, bodyProperties) {
+lib_.physics.addBodyAsGravitySource = function(displayObject, bodyProperties) {
     bodyProperties.hasGravityField = true
     lib_.physics.addBody(displayObject, bodyProperties)
 }
