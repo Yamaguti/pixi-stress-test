@@ -15,7 +15,7 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
         displayObject : displayObject,
 
         fixedGravityScale : (bodyProperties.fixedGravityScale === undefined) ? 1 : bodyProperties.fixedGravityScale,
-        isAffectedByGravityField : (bodyProperties.isAffectedByGravityField === undefined) ? true : bodyProperties.isAffectedByGravityField,
+        isAffectedByGravitySources : (bodyProperties.isAffectedByGravitySources === undefined) ? true : bodyProperties.isAffectedByGravitySources,
         hasGravityField   : bodyProperties.hasGravityField,
     }
     displayObject.physicsObject = physicsObject
@@ -95,11 +95,11 @@ lib_.physics.updateGravity = function(dt) {
                 var distanceSquare = (dx*dx+dy*dy) || 1
                 var baseForce = constant_G/distanceSquare*(dt/1000)
 
-                if (physicsObject.isAffectedByGravityField) {
+                if (physicsObject.isAffectedByGravitySources) {
                     physicsObject.xSpeed += baseForce*M*dx
                     physicsObject.ySpeed += baseForce*M*dy
                 }
-                if (gravityObject.isAffectedByGravityField) {
+                if (gravityObject.isAffectedByGravitySources) {
                     physicsObject.xSpeed += baseForce*m*dx
                     physicsObject.ySpeed += baseForce*m*dy
                 }

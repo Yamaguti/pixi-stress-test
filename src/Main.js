@@ -58,7 +58,7 @@ var createGravityPoint = function(x, y) {
     stage.addChild(gravityPoint)
 
     lib_.physics.addBodyAsGravitySource(gravityPoint, {
-        // isAffectedByGravityField : false,
+        // isAffectedByGravitySources : false,
         mass : 140000000000,
         fixedGravityScale : 0,
     })
