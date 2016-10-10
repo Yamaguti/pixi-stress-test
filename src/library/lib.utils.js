@@ -24,7 +24,9 @@ lib_.utils.newRectangle = function(x, y, width, height, params) {
         graphics.lineStyle(params.strokeWidth || 2, params.strokeColor || 0x000000);
 
     // draw a rectangle
-    graphics.drawRect(x, y, width, height);
+    graphics.drawRect(0, 0, width, height);
+    graphics.position.x = x
+    graphics.position.y = y
 
     return graphics;
 }
@@ -43,7 +45,10 @@ lib_.utils.newCircle = function(x, y, radius, params) {
         graphics.lineStyle(params.strokeWidth || 2, params.strokeColor || 0x000000);
 
     // draw a rectangle
-    graphics.drawCircle(x, y, radius);
+    graphics.drawCircle(0, 0, radius);
+
+    graphics.position.x = x
+    graphics.position.y = y
 
     return graphics;
 }
