@@ -23,7 +23,7 @@ physics.setGravity({
 })
 
 
-
+// Spawn physics based particles
 var createParticles = function(amount, x, y) {
     for (var index = 0; index < amount; index++) {
         var showcase_object = utils.newCircle(x, y, 1.5, {
@@ -38,25 +38,52 @@ var createParticles = function(amount, x, y) {
         showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
         showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
 
-        lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(showcase_object) {
-            return function() {
-                lib_.physics.removeBody(showcase_object)
-                showcase_object.destroy()
-            }
-        }(showcase_object))
+        // lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(showcase_object) {
+        //     return function() {
+        //         lib_.physics.removeBody(showcase_object)
+        //         showcase_object.destroy()
+        //     }
+        // }(showcase_object))
     }
 }
 
 
-// Touch
+// Creates a gravity well
+var createGravityPoint = function(x, y) {
+    var gravityPoint = utils.newCircle(x, y, 3, {
+        color : 0xffffff,
+        strokeWidth : 0.25,
+    })
 
+    stage.addChild(gravityPoint)
+
+    lib_.physics.addBodyWithGravityField(gravityPoint, {
+        isAffectedByGravityField : false,
+        mass : 140000000000,
+        fixedGravityScale : 0,
+    })
+}
+
+
+// Mode
+var gameMode = 1
+
+
+// Touch
 stage.hitArea     = new PIXI.Rectangle(screenLeft, screenTop, screenRight, screenBottom);
 stage.interactive = true
 
 stage.click = stage.tap = function(mousedata) {
     var position = mousedata.data.getLocalPosition(this)
 
-    createParticles(200, position.x, position.y)
+    if (gameMode === 0) {
+        createParticles(100, position.x, position.y)
+        gameMode = 1
+
+    } else {
+        createGravityPoint(position.x, position.y)
+        gameMode = 0
+    }
 }
 
 console.log("tap the screen!")

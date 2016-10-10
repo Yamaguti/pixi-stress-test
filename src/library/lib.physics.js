@@ -1,6 +1,9 @@
 
 lib_.physics = {}
 lib_.bodiesRegistered = []
+lib_.bodiesWithGravityField = []
+
+lib_.physics.constant_G = 0.0000000000667408
 
 
 // Add body
@@ -9,20 +12,37 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
         mass   : bodyProperties.mass || 1,
         xSpeed : 0,
         ySpeed : 0,
-        gravityScale : 1,
         displayObject : displayObject,
+
+        fixedGravityScale : (bodyProperties.fixedGravityScale === undefined) ? 1 : bodyProperties.fixedGravityScale,
+        isAffectedByGravityField : (bodyProperties.isAffectedByGravityField === undefined) ? true : bodyProperties.isAffectedByGravityField,
+        hasGravityField   : bodyProperties.hasGravityField,
     }
     displayObject.physicsObject = physicsObject
     lib_.bodiesRegistered.push(physicsObject)
+
+
+    if (physicsObject.hasGravityField) {
+        lib_.bodiesWithGravityField.push(physicsObject)
+    }
 
     // TODO add event when displayObject is destroyed
     // I dont think this exists :(
 }
 
+
+// Special body, which affects gravitational field
+lib_.physics.addBodyWithGravityField = function(displayObject, bodyProperties) {
+    bodyProperties.hasGravityField = true
+    lib_.physics.addBody(displayObject, bodyProperties)
+}
+
+
 // Remove body
 lib_.physics.removeBody = function(displayObject, bodyProperties) {
     var physicsObject = displayObject.physicsObject
     lib_.utils.removeFromArray(lib_.bodiesRegistered, physicsObject)
+    lib_.utils.removeFromArray(lib_.bodiesWithGravityField, physicsObject)
 }
 
 
@@ -46,19 +66,52 @@ lib_.physics.setGravity = function(array) {
 
 // gravity update
 lib_.physics.updateGravity = function(dt) {
+    // localization optimizations
     var gravityX = lib_.physics.gravity.x;
     var gravityY = lib_.physics.gravity.y;
+    var constant_G = lib_.physics.constant_G
+    var sign       = PIXI.utils.sign
 
     var bodiesRegistered = lib_.bodiesRegistered;
-    var amountBodies = bodiesRegistered.length;
+    var amountBodies     = bodiesRegistered.length;
+
+    var bodiesWithGravityField = lib_.bodiesWithGravityField
+    var bodiesWithGravityFieldLenght = bodiesWithGravityField.length;
+
     var index;
+    for (index = 0; index < bodiesWithGravityFieldLenght; index++) {
+        var gravityObject = bodiesWithGravityField[index];
+
+        var otherIndex;
+        for (otherIndex = 0; otherIndex < amountBodies; otherIndex++) {
+            var physicsObject = bodiesRegistered[otherIndex];
+            var M = gravityObject.mass
+            var m = physicsObject.mass
+
+            if (gravityObject !== physicsObject) {
+                var dx = (gravityObject.displayObject.worldTransform.tx - physicsObject.displayObject.worldTransform.tx)
+                var dy = (gravityObject.displayObject.worldTransform.ty - physicsObject.displayObject.worldTransform.ty)
+
+                var baseForce = constant_G/(dx*dx+dy*dy)*(dt/1000)
+
+                if (physicsObject.isAffectedByGravityField) {
+                    physicsObject.xSpeed += baseForce*M*dx
+                    physicsObject.ySpeed += baseForce*M*dy
+                }
+                if (gravityObject.isAffectedByGravityField) {
+                    physicsObject.xSpeed += baseForce*m*dx
+                    physicsObject.ySpeed += baseForce*m*dy
+                }
+            }
+        }
+    }
 
     for (index = 0; index < amountBodies; index++) {
         var physicsObject = bodiesRegistered[index];
-        var gravityScale  = physicsObject.gravityScale;
+        var fixedGravityScale = physicsObject.fixedGravityScale;
 
-        physicsObject.xSpeed += (gravityScale * gravityX)*(dt/1000);
-        physicsObject.ySpeed += (gravityScale * gravityY)*(dt/1000);
+        physicsObject.xSpeed += (fixedGravityScale * gravityX)*(dt/1000);
+        physicsObject.ySpeed += (fixedGravityScale * gravityY)*(dt/1000);
     }
 }
 
