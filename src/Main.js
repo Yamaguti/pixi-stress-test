@@ -49,16 +49,15 @@ var createParticles = function(amount, x, y) {
 
 
 // Creates a gravity source
-var createGravityPoint = function(x, y) {
+var createGravityPoint = function(x, y, fixed) {
     var gravityPoint = utils.newCircle(x, y, 3, {
-        color : 0xffffff,
+        color : fixed? 0xff0000:0xffffff,
         strokeWidth : 0.25,
     })
-
     stage.addChild(gravityPoint)
 
     lib_.physics.addBodyAsGravitySource(gravityPoint, {
-        // isAffectedByGravitySources : false,
+        isAffectedByGravitySources : !fixed,
         mass : 140000000000,
         fixedGravityScale : 0,
     })
@@ -97,14 +96,15 @@ var newButton = function(width, height, buttonParams) {
 
 // Change game mode
 var gameMode    = 0
-var maxGameMode = 2
+var possibleGameModes = [
+    "Particles",
+    "Fixed sources",
+    "Moving sources",
+]
+var maxGameMode = possibleGameModes.length
 
-var possibleGameModes = {
-    0: "Particles",
-    1: "G. sources",
-}
 
-var buttonWidth  = 140
+var buttonWidth  = 160
 var buttonHeight = 50
 var buttonOffset = 20
 var button = newButton(buttonWidth, buttonHeight, {
@@ -158,8 +158,12 @@ stage.click = stage.tap = function(mousedata) {
     if (gameMode === 0) {
         createParticles(100, position.x, position.y)
 
-    } else {
-        createGravityPoint(position.x, position.y)
+    }
+    else if (gameMode === 1) {
+        createGravityPoint(position.x, position.y, true)
+    }
+    else{
+        createGravityPoint(position.x, position.y, false)
     }
 }
 
