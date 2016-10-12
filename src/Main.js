@@ -32,21 +32,16 @@ var createParticles = function(amount, x, y) {
         })
 
         stage.addChild(showcase_object)
-        // lib_.physics.addBody(showcase_object, {
-        //     mass:20000,
-        // })
-
-        lib_.physics.addBodyAsGravitySource(showcase_object, {
+        lib_.physics.addBody(showcase_object, {
             mass:20000000,
         })
-
 
         var rotation  = index*incremetPerIteration*2 * Math.PI
         var intensity = 0.015
         showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
         showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
 
-        // lib_.timerManager.startTimer(2000 + 5000*Math.random(), function(showcase_object) {
+        // lib_.timerManager.startTimer(10000, function(showcase_object) {
         //     return function() {
         //         lib_.physics.removeBody(showcase_object)
         //         showcase_object.destroy()
