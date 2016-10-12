@@ -13,8 +13,6 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
         xSpeed : 0,
         ySpeed : 0,
         displayObject : displayObject,
-
-        fixedGravityScale : (bodyProperties.fixedGravityScale === undefined) ? 1 : bodyProperties.fixedGravityScale,
         isAffectedByGravitySources : (bodyProperties.isAffectedByGravitySources === undefined) ? true : bodyProperties.isAffectedByGravitySources,
     }
     displayObject.physicsObject = physicsObject
@@ -104,10 +102,9 @@ lib_.physics.updateGravity = function(dt) {
 
     for (index = 0; index < amountBodies; index++) {
         var physicsObject = kinectBodies[index];
-        var fixedGravityScale = physicsObject.fixedGravityScale;
 
-        physicsObject.xSpeed += (fixedGravityScale * gravityX)*(dt/1000);
-        physicsObject.ySpeed += (fixedGravityScale * gravityY)*(dt/1000);
+        physicsObject.xSpeed += gravityX*dt/1000;
+        physicsObject.ySpeed += gravityY*dt/1000;
     }
 }
 

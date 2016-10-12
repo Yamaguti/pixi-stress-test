@@ -46,6 +46,5 @@ var createGravityPoint = function(x, y, fixed, isNegative) {
     lib_.physics.addBodyAsGravitySource(gravityPoint, {
         isAffectedByGravitySources : !fixed,
         mass : (isNegative? -1:1)*14000000000,
-        fixedGravityScale : 0,
     })
 }
