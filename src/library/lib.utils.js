@@ -42,7 +42,7 @@ lib_.utils.newCircle = function(x, y, radius, params) {
     }
 
     if (params.strokeWidth)
-        graphics.lineStyle(params.strokeWidth || 2, params.strokeColor || 0x000000);
+        graphics.lineStyle(params.strokeWidth, params.strokeColor || 0x000000);
 
     // draw a rectangle
     graphics.drawCircle(0, 0, radius);
