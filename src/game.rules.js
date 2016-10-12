@@ -44,7 +44,7 @@ var createGravityPoint = function(x, y, fixed, isNegative) {
     stage.addChild(gravityPoint)
 
     lib_.physics.addBodyAsGravitySource(gravityPoint, {
-        isAffectedByGravitySources : !fixed,
+        kinect : !fixed,
         mass : (isNegative? -1:1)*14000000000,
     })
 }

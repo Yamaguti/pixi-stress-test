@@ -13,10 +13,13 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
         xSpeed : 0,
         ySpeed : 0,
         displayObject : displayObject,
-        isAffectedByGravitySources : (bodyProperties.isAffectedByGravitySources === undefined) ? true : bodyProperties.isAffectedByGravitySources,
+        kinect: (bodyProperties.kinect === undefined) ? true : bodyProperties.kinect
     }
     displayObject.physicsObject = physicsObject
-    lib_.kinectBodies.push(physicsObject)
+
+    if (physicsObject.kinect){
+        lib_.kinectBodies.push(physicsObject)
+    }
 
     // TODO add event when displayObject is destroyed
     // I dont think this exists :(
@@ -92,10 +95,8 @@ lib_.physics.updateGravity = function(dt) {
 
             if (distanceSquare > 100) {
                 var baseForce = M*constant_G/distanceSquare*(dt/1000)
-                if (physicsObject.isAffectedByGravitySources) {
-                    physicsObject.xSpeed += baseForce*dx
-                    physicsObject.ySpeed += baseForce*dy
-                }
+                physicsObject.xSpeed += baseForce*dx
+                physicsObject.ySpeed += baseForce*dy
             }
         }
     }
