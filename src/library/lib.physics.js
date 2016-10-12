@@ -1,6 +1,6 @@
 
 lib_.physics = {}
-lib_.bodiesRegistered = []
+lib_.kinectBodies = []
 lib_.gravitySources = []
 
 lib_.physics.constant_G = 0.0000000000667408
@@ -18,7 +18,7 @@ lib_.physics.addBody = function(displayObject, bodyProperties) {
         isAffectedByGravitySources : (bodyProperties.isAffectedByGravitySources === undefined) ? true : bodyProperties.isAffectedByGravitySources,
     }
     displayObject.physicsObject = physicsObject
-    lib_.bodiesRegistered.push(physicsObject)
+    lib_.kinectBodies.push(physicsObject)
 
     // TODO add event when displayObject is destroyed
     // I dont think this exists :(
@@ -39,7 +39,7 @@ lib_.physics.addBodyAsGravitySource = function(displayObject, bodyProperties) {
 // Remove body
 lib_.physics.removeBody = function(displayObject, bodyProperties) {
     var physicsObject = displayObject.physicsObject
-    lib_.utils.removeFromArray(lib_.bodiesRegistered, physicsObject)
+    lib_.utils.removeFromArray(lib_.kinectBodies, physicsObject)
     lib_.utils.removeFromArray(lib_.gravitySources, physicsObject)
 }
 
@@ -69,8 +69,8 @@ lib_.physics.updateGravity = function(dt) {
     var gravityY = lib_.physics.gravity.y;
     var constant_G = lib_.physics.constant_G
 
-    var bodiesRegistered = lib_.bodiesRegistered;
-    var amountBodies     = bodiesRegistered.length;
+    var kinectBodies = lib_.kinectBodies;
+    var amountBodies = kinectBodies.length;
 
     var gravitySources = lib_.gravitySources
     var gravitySourcesLenght = gravitySources.length;
@@ -84,7 +84,7 @@ lib_.physics.updateGravity = function(dt) {
 
         var otherIndex;
         for (otherIndex = 0; otherIndex < amountBodies; otherIndex++) {
-            var physicsObject = bodiesRegistered[otherIndex];
+            var physicsObject = kinectBodies[otherIndex];
             var m             = physicsObject.mass
             var transform     = physicsObject.displayObject.worldTransform
 
@@ -103,7 +103,7 @@ lib_.physics.updateGravity = function(dt) {
     }
 
     for (index = 0; index < amountBodies; index++) {
-        var physicsObject = bodiesRegistered[index];
+        var physicsObject = kinectBodies[index];
         var fixedGravityScale = physicsObject.fixedGravityScale;
 
         physicsObject.xSpeed += (fixedGravityScale * gravityX)*(dt/1000);
@@ -118,12 +118,12 @@ lib_.physics.updateGravity = function(dt) {
 //
 
 lib_.physics.updateSpeed = function(dt) {             // dt is given in milliseconds
-    var bodiesRegistered = lib_.bodiesRegistered;
-    var amountBodies = bodiesRegistered.length;
+    var kinectBodies = lib_.kinectBodies;
+    var amountBodies = kinectBodies.length;
     var index;
 
     for (index = 0; index < amountBodies; index++) {
-        var physicsObject = bodiesRegistered[index];
+        var physicsObject = kinectBodies[index];
         var displayObject = physicsObject.displayObject
 
         displayObject.position.x += physicsObject.xSpeed/(dt/1000)
