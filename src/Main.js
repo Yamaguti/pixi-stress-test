@@ -33,8 +33,8 @@ var createParticles = function(amount, x, y) {
         stage.addChild(showcase_object)
         lib_.physics.addBody(showcase_object, {})
 
-        var rotation  = Math.random() * 2 * Math.PI
-        var intensity = Math.random() * 0.03
+        var rotation  = index/360*2 * Math.PI
+        var intensity = 0.015
         showcase_object.physicsObject.xSpeed = intensity*Math.cos(rotation)
         showcase_object.physicsObject.ySpeed = intensity*Math.sin(rotation)
 
@@ -58,7 +58,7 @@ var createGravityPoint = function(x, y, fixed, isNegative) {
 
     lib_.physics.addBodyAsGravitySource(gravityPoint, {
         isAffectedByGravitySources : !fixed,
-        mass : (isNegative? -1:1)*140000000000,
+        mass : (isNegative? -1:1)*14000000000,
         fixedGravityScale : 0,
     })
 }
@@ -168,8 +168,7 @@ stage.click = stage.tap = function(mousedata) {
     var position = mousedata.data.getLocalPosition(this)
 
     if (gameMode === 0) {
-        createParticles(100, position.x, position.y)
-
+        createParticles(360, position.x, position.y)
     }
     else if (gameMode === 1) {
         createGravityPoint(position.x, position.y, true, false)
