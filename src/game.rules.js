@@ -8,7 +8,7 @@
 
 // Spawn physics based particles
 var createParticles = function(amount, x, y) {
-    var incremetPerIteration = 1/70
+    var incremetPerIteration = 1/amount
     var utils = lib_.utils
     for (var index = 0; index < amount; index++) {
         var showcase_object = utils.newCircle(x, y, 1.5, {
