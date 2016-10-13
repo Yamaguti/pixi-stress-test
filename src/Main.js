@@ -95,10 +95,9 @@ var smallSpacing = 7
 //     }
 // }
 
-gameMode = 0
-var dots = 12
-var _intensity = 100
-
+// gameMode = 0
+// var dots = 12
+// var _intensity = 100
 // for (var _amount = 1; _amount <= dots; _amount += 1) {
 //     var rotation = _amount/dots * (2 * Math.PI)
 //     var x = _intensity*Math.cos(rotation)
@@ -106,18 +105,18 @@ var _intensity = 100
 //     fakeClick(x + centerX, y + centerY)
 // }
 
-gameMode = 1
 
-for (var _intensity = 100; _intensity <= 1000; _intensity += spacing) {
-    var _maxAmount = _intensity
+// gameMode = 1
+// for (var _intensity = 100; _intensity <= 1000; _intensity += spacing) {
+//     var _maxAmount = _intensity
 
-    for (var _amount = 0; _amount <= _maxAmount; _amount += 10) {
-        var rotation = _amount/_maxAmount * (2 * Math.PI)
-        var x = _intensity*Math.cos(rotation)
-        var y = _intensity*Math.sin(rotation)
-        fakeClick(x + centerX, y + centerY)
-    }
-}
+//     for (var _amount = 0; _amount <= _maxAmount; _amount += 10) {
+//         var rotation = _amount/_maxAmount * (2 * Math.PI)
+//         var x = _intensity*Math.cos(rotation)
+//         var y = _intensity*Math.sin(rotation)
+//         fakeClick(x + centerX, y + centerY)
+//     }
+// }
 
 
 gameMode = 0
