@@ -44,32 +44,72 @@ stage.interactive = true
 
 stage.click = stage.tap = function(mousedata) {
     var position = mousedata.data.getLocalPosition(this)
+    var fixed
+    var isNegative
 
     if (gameMode === 0) {
         createParticles(70, position.x, position.y)
+        return
     }
     else if (gameMode === 1) {
-        createGravityPoint(position.x, position.y, true, false)
+        fixed      = true
+        isNegative = false
     }
     else if (gameMode == 2) {
+        fixed      = false
+        isNegative = false
         createGravityPoint(position.x, position.y, false, false)
     }
     else if (gameMode == 3) {
-        createGravityPoint(position.x, position.y, true, true)
+        fixed      = true
+        isNegative = true
     }
     else if (gameMode == 4) {
-        createGravityPoint(position.x, position.y, false, true)
+        fixed      = false
+        isNegative = true
     }
+    createGravityPoint(position.x, position.y, fixed, isNegative)
 }
 
 createUI()
 console.log("tap the screen!")
 
 
-// var spacing = 100
-// for (var asdf = screenTop; asdf < screenBottom; asdf += spacing) {
-//     for (var qwer = screenLeft; qwer < screenRight; qwer += spacing) {
-//         createGravityPoint(qwer, asdf, true, false)
+
+// debug
+var fakeClick = function(x, y) {
+    stage.click({
+        data: {
+            getLocalPosition: function() {
+                return {x: x, y: y}
+            }
+        }
+    })
+}
+
+var spacing = 100
+var smallSpacing = 7
+
+
+// gameMode = 1
+// for (var line = screenTop; line < screenBottom; line += spacing) {
+//     for (var col = screenLeft; col < screenRight; col += spacing) {
+//         fakeClick(col, line)
 //     }
 // }
 
+gameMode = 3
+var dots = 100
+var _intensity = 150
+
+for (var _amount = 1; _amount <= dots; _amount += 1) {
+    var rotation = _amount/dots * (2 * Math.PI)
+    var x = _intensity*Math.cos(rotation)
+    var y = _intensity*Math.sin(rotation)
+    fakeClick(x + centerX, y + centerY)
+}
+
+
+
+
+gameMode = 0
