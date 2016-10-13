@@ -107,7 +107,7 @@ var smallSpacing = 7
 
 
 // gameMode = 1
-// for (var _intensity = 100; _intensity <= 1000; _intensity += spacing) {
+// for (var _intensity = 100; _intensity <= 300; _intensity += spacing) {
 //     var _maxAmount = _intensity
 
 //     for (var _amount = 0; _amount <= _maxAmount; _amount += 10) {
@@ -118,13 +118,12 @@ var smallSpacing = 7
 //     }
 // }
 
-// debug
-lib_.timerManager.startTimer(100, function() {
-    createParticles(1, centerX, centerY)
-}, -1)
+// lib_.timerManager.startTimer(1000, function() {
+//     createParticles(10, centerX, centerY)
+// }, -1)
 
-gameMode = 1
-fakeClick(centerX, centerY - 100)
+// gameMode = 1
+// fakeClick(centerX, centerY - 100)
 
 
 gameMode = 0
