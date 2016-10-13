@@ -16,14 +16,19 @@ lib_.timerManager.update = function(dt) {
 
     for (var timerId in TimerManager.registeredTimers) {
         var timer = TimerManager.registeredTimers[timerId]
-        if (now >= timer.time) {
+        if (now >= timer.endTime) {
             timersToFire[timerId] = true
         }
     }
 
     for (var timerId in timersToFire) {
         var timer = TimerManager.registeredTimers[timerId]
-        delete TimerManager.registeredTimers[timerId];
+        timer.count += 1
+
+        timer.endTime = now + timer.timeToFire
+        if (timer.count == timer.iterations) {
+            delete TimerManager.registeredTimers[timerId];
+        }
         timer.callback()
     }
 }
@@ -38,9 +43,12 @@ function _getUniqueId_() {
 //
 // Metods
 //
-lib_.timerManager.startTimer = function(timeToFire, callback) {
+lib_.timerManager.startTimer = function(timeToFire, callback, iterations) {
     lib_.timerManager.registeredTimers[_getUniqueId_()] = {
-        "callback" : callback,
-        "time"     : performance.now() + timeToFire,
+        callback    : callback,
+        timeToFire  : timeToFire,
+        endTime     : timeToFire + performance.now(),
+        iterations  : iterations || 1,
+        count       : 0,
     }
 }
