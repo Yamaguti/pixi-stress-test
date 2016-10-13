@@ -118,6 +118,14 @@ var smallSpacing = 7
 //     }
 // }
 
+// debug
+lib_.timerManager.startTimer(100, function() {
+    createParticles(1, centerX, centerY)
+}, -1)
+
+gameMode = 1
+fakeClick(centerX, centerY - 100)
+
 
 gameMode = 0
 createUI()
