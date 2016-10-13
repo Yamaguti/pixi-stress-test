@@ -76,10 +76,12 @@ lib_.physics.updateGravity = function(dt) {
     var gravitySources = lib_.gravitySources
     var gravitySourcesLenght = gravitySources.length;
 
+    // var sign = PIXI.utils.sign
+
     var index;
     for (index = 0; index < gravitySourcesLenght; index++) {
         var gravityObject = gravitySources[index];
-        var factor = gravityObject.mass * constant_G
+        var factor = gravityObject.mass * constant_G * dt / 1000
         var gx = gravityObject.displayObject.worldTransform.tx
         var gy = gravityObject.displayObject.worldTransform.ty
 
@@ -94,18 +96,20 @@ lib_.physics.updateGravity = function(dt) {
             var distanceSquare = (dx*dx+dy*dy)
 
             if (distanceSquare > 100) {
-                var baseForce = factor/distanceSquare*(dt/1000)
+                var baseForce = factor/distanceSquare
                 physicsObject.xSpeed += baseForce*dx
                 physicsObject.ySpeed += baseForce*dy
             }
         }
     }
 
+    var generalGravityIncrementX = gravityX*dt/1000
+    var generalGravityIncrementY = gravityY*dt/1000
     for (index = 0; index < amountBodies; index++) {
         var physicsObject = kinectBodies[index];
 
-        physicsObject.xSpeed += gravityX*dt/1000;
-        physicsObject.ySpeed += gravityY*dt/1000;
+        physicsObject.xSpeed += generalGravityIncrementX;
+        physicsObject.ySpeed += generalGravityIncrementY;
     }
 }
 
